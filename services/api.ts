@@ -8,6 +8,10 @@ const getHeaders = (customKey?: string) => ({
 
 async function request<T>(endpoint: string, options: RequestInit = {}): Promise<T> {
   const url = `${SERVER_URL}${endpoint}`;
+  
+  // Debug Log: Request
+  console.log(`[API Req] ${options.method || 'GET'} ${url}`);
+
   const config = {
     ...options,
     headers: { ...getHeaders(), ...options.headers },
@@ -15,11 +19,18 @@ async function request<T>(endpoint: string, options: RequestInit = {}): Promise<
 
   try {
     const response = await fetch(url, config);
+    
+    // Debug Log: Response Status
+    console.log(`[API Res] ${url} - Status: ${response.status}`);
+
     const data = await response.json().catch(() => ({})); 
-    if (!response.ok) throw new Error(data.message || data.error || `Error ${response.status}`);
+    if (!response.ok) {
+        console.error(`[API Error] ${url}`, data);
+        throw new Error(data.message || data.error || `Error ${response.status}`);
+    }
     return data as T;
   } catch (error: any) {
-    console.error(`API Error on ${url}:`, error);
+    console.error(`API Exception on ${url}:`, error);
     throw error;
   }
 }

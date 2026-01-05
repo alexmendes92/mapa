@@ -21,12 +21,23 @@ function App() {
   const fetchInstances = async () => {
     setLoadingInstances(true);
     try {
-      const data = await instanceService.fetchInstances();
+      const data: any = await instanceService.fetchInstances();
+      console.log("Raw Instances Data:", data);
+
+      let validList: any[] = [];
+      
+      // Handle various API response structures
       if (Array.isArray(data)) {
-        setInstances(data);
-      } else {
-        setInstances([]);
+        validList = data;
+      } else if (data && Array.isArray(data.data)) {
+        validList = data.data;
+      } else if (data && Array.isArray(data.instance)) {
+        validList = data.instance;
+      } else if (data && Array.isArray(data.instances)) {
+         validList = data.instances;
       }
+
+      setInstances(validList);
     } catch (error) {
       console.error("Failed to fetch instances", error);
       setInstances([]);
