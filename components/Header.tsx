@@ -1,14 +1,15 @@
 import React from 'react';
-import { Wifi, WifiOff } from 'lucide-react';
+import { Wifi, WifiOff, RefreshCw } from 'lucide-react';
 
 interface HeaderProps {
   instances: any[];
   selectedInstance: string | null;
   setSelectedInstance: (name: string) => void;
   onRefresh: () => void;
+  isLoading: boolean;
 }
 
-const Header: React.FC<HeaderProps> = ({ instances, selectedInstance, setSelectedInstance, onRefresh }) => {
+const Header: React.FC<HeaderProps> = ({ instances, selectedInstance, setSelectedInstance, onRefresh, isLoading }) => {
   return (
     <header className="h-16 bg-card border-b border-slate-700 flex items-center justify-between px-8 sticky top-0 z-10">
       <div className="flex items-center gap-4">
@@ -34,9 +35,11 @@ const Header: React.FC<HeaderProps> = ({ instances, selectedInstance, setSelecte
         </select>
         <button 
           onClick={onRefresh}
-          className="text-xs text-primary hover:text-primary/80 underline"
+          disabled={isLoading}
+          className="text-xs text-primary hover:text-primary/80 underline flex items-center gap-1 disabled:opacity-50"
         >
-          Refresh List
+          <RefreshCw size={12} className={isLoading ? 'animate-spin' : ''} />
+          {isLoading ? 'Refreshing...' : 'Refresh List'}
         </button>
       </div>
 

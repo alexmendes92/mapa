@@ -34,7 +34,7 @@ const Integrations: React.FC<IntegrationsProps> = ({ selectedInstance }) => {
     const handleTypebotSave = async () => {
         if (!selectedInstance) return;
         try {
-            await integrationService.createTypebot(selectedInstance, {
+            await integrationService.typebot.create(selectedInstance, {
                 ...typebot,
                 triggerOperator: 'contains',
                 delayMessage: 1000,

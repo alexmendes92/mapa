@@ -8,7 +8,8 @@ import {
   Activity,
   Smartphone,
   Terminal,
-  Shield
+  Shield,
+  Tag
 } from 'lucide-react';
 
 interface SidebarProps {
@@ -21,10 +22,11 @@ const Sidebar: React.FC<SidebarProps> = ({ activeTab, setActiveTab }) => {
     { id: 'instances', label: 'Instances', icon: Server },
     { id: 'messaging', label: 'Messaging', icon: MessageSquare },
     { id: 'groups', label: 'Groups', icon: Users },
+    { id: 'labels', label: 'Labels', icon: Tag },
     { id: 'chat-utils', label: 'Chat Utils', icon: Smartphone },
     { id: 'integrations', label: 'Integrations', icon: Webhook },
     { id: 'proxy', label: 'Proxy Manager', icon: Shield },
-    { id: 'raw', label: 'Raw API', icon: Terminal },
+    { id: 'postman', label: 'Postman', icon: Terminal },
     { id: 'settings', label: 'Settings', icon: Settings },
   ];
 
