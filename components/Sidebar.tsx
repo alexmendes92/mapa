@@ -9,7 +9,8 @@ import {
   Smartphone,
   Terminal,
   Shield,
-  Tag
+  Tag,
+  MessageCircle
 } from 'lucide-react';
 
 interface SidebarProps {
@@ -20,7 +21,8 @@ interface SidebarProps {
 const Sidebar: React.FC<SidebarProps> = ({ activeTab, setActiveTab }) => {
   const menuItems = [
     { id: 'instances', label: 'Instances', icon: Server },
-    { id: 'messaging', label: 'Messaging', icon: MessageSquare },
+    { id: 'live-chat', label: 'Live Chat', icon: MessageCircle }, // New Item
+    { id: 'messaging', label: 'Send Message', icon: MessageSquare },
     { id: 'groups', label: 'Groups', icon: Users },
     { id: 'labels', label: 'Labels', icon: Tag },
     { id: 'chat-utils', label: 'Chat Utils', icon: Smartphone },

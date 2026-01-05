@@ -23,9 +23,17 @@ async function request<T>(endpoint: string, options: RequestInit = {}): Promise<
     // Debug Log: Response Status
     console.log(`[API Res] ${url} - Status: ${response.status}`);
 
-    const data = await response.json().catch(() => ({})); 
+    const text = await response.text();
+    let data;
+    try {
+        data = JSON.parse(text);
+    } catch (e) {
+        // If response is not JSON (e.g. 404 HTML), capture text for debugging
+        data = { error: 'Invalid JSON Response', message: text.substring(0, 500) };
+    }
+
     if (!response.ok) {
-        console.error(`[API Error] ${url}`, data);
+        console.error(`[API Error] ${url}`, JSON.stringify(data, null, 2));
         throw new Error(data.message || data.error || `Error ${response.status}`);
     }
     return data as T;

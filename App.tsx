@@ -10,6 +10,7 @@ import Postman from './components/Postman';
 import Settings from './components/Settings';
 import ChatUtils from './components/ChatUtils';
 import ProxyManager from './components/ProxyManager';
+import LiveChat from './components/LiveChat'; // New Import
 import { instanceService } from './services/api';
 
 function App() {
@@ -22,7 +23,7 @@ function App() {
     setLoadingInstances(true);
     try {
       const data: any = await instanceService.fetchInstances();
-      console.log("Raw Instances Data:", data);
+      console.log('Raw Data:', data);
 
       let validList: any[] = [];
       
@@ -54,6 +55,8 @@ function App() {
     switch (activeTab) {
       case 'instances':
         return <InstanceList instances={instances} refreshInstances={fetchInstances} isLoading={loadingInstances} />;
+      case 'live-chat': // New Case
+        return <LiveChat selectedInstance={selectedInstance} />;
       case 'messaging':
         return <MessageForm selectedInstance={selectedInstance} />;
       case 'groups':

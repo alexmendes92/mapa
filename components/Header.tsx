@@ -23,12 +23,14 @@ const Header: React.FC<HeaderProps> = ({ instances, selectedInstance, setSelecte
           {instances.map((item: any) => {
             // Handle both { instance: {...} } and flat {...} structures
             const inst = item.instance || item;
+            // Support both v1 (instanceName) and v2 (name) fields
+            const name = inst.instanceName || inst.name;
             
-            if (!inst || !inst.instanceName) return null;
+            if (!inst || !name) return null;
 
             return (
-              <option key={inst.instanceName} value={inst.instanceName}>
-                {inst.instanceName}
+              <option key={name} value={name}>
+                {name}
               </option>
             );
           })}

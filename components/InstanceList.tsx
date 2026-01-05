@@ -136,10 +136,16 @@ const InstanceList: React.FC<InstanceListProps> = ({ instances, refreshInstances
             instances.map((item: any) => {
             const inst = item.instance || item; // Handle structure variations
             
-            if (!inst || !inst.instanceName) return null;
+            // Support both v1 (instanceName) and v2 (name) fields
+            const name = inst.instanceName || inst.name;
+            
+            if (!inst || !name) return null;
 
-            const name = inst.instanceName;
-            const status = inst.status;
+            // Support both v1 (status) and v2 (connectionStatus)
+            const status = inst.status || inst.connectionStatus;
+            
+            // Support both v1 (owner) and v2 (ownerJid)
+            const owner = inst.owner || inst.ownerJid;
 
             return (
                 <div key={name} className="bg-card p-6 rounded-lg border border-slate-700 shadow-lg flex flex-col justify-between hover:border-primary/50 transition-colors">
@@ -152,7 +158,7 @@ const InstanceList: React.FC<InstanceListProps> = ({ instances, refreshInstances
                     </div>
                     <div className="text-sm text-slate-400 mb-4 space-y-1">
                         <p className="flex justify-between"><span>Profile:</span> <span className="text-white">{inst.profileName || 'N/A'}</span></p>
-                        <p className="flex justify-between"><span>Number:</span> <span className="text-white">{inst.owner ? inst.owner.split('@')[0] : 'N/A'}</span></p>
+                        <p className="flex justify-between"><span>Number:</span> <span className="text-white">{owner ? owner.split('@')[0] : 'N/A'}</span></p>
                     </div>
                 </div>
                 
