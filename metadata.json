@@ -1,0 +1,5 @@
+{
+  "name": "Evolution API Manager",
+  "description": "A comprehensive dashboard to manage your Evolution API instances, send messages, manage groups, and configure integrations.",
+  "requestFramePermissions": []
+}
